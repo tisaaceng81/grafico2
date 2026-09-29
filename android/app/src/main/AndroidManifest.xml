@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.isaacx.isaacplot">
+    <!-- 🛡️ TODAS AS PERMISSÕES DO SEU ECOSSISTEMA COMPLETO -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.NFC"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    
+    <!-- 📷 RECURSOS DE HARDWARE OPCIONAIS (EVITA CRASH EM APARELHOS SEM ESSES SENSORES) -->
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false"/>
+
+    <!-- 🌐 PERMISSÃO PARA ABRIR LINKS EXTERNOS -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+    </queries>
+
+    <application android:label="IsaacPlot" android:icon="@mipmap/ic_launcher" android:usesCleartextTraffic="true" android:hardwareAccelerated="true" android:largeHeap="true">
+        <activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        
+        <!-- 🚀 AQUI ENTRAM AS 2, 50 OU 1000 TELAS KOTLIN AUTOMATICAMENTE -->
+        
+        <activity android:name=".Grafico_2dActivity" android:exported="true" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Grafico_3dActivity" android:exported="true" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Grafico_estatisticoActivity" android:exported="true" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Grafico_probabilidadeActivity" android:exported="true" android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <meta-data android:name="com.google.android.gms.ads.APPLICATION_ID" android:value="ca-app-pub-2359057241063449~3194107727"/>
+        <meta-data android:name="flutterEmbedding" android:value="2" />
+    </application>
+</manifest>
