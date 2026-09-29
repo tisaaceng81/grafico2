@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:id="@+id/logo4"
+            android:layout_width="48dp"
+            android:layout_height="48dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Analise Estatistica e Curva de Gauss"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#1E293B"
+            android:layout_marginStart="12dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/edtDadosEstatisticos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Digite valores (ex: 12, 15, 14, 10, 18, 22, 15, 16, 17, 19, 13)"
+        android:textColorHint="#888888"
+        android:textColor="#000000"
+        android:background="#F1F5F9"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp" />
+
+    <Button
+        android:id="@+id/btnCalcularEstatistica"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gerar Histograma e Curva Gaussiana"
+        android:backgroundTint="#0066FF"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/txtResultados"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Media: - | Variancia: - | Desvio Padrao: -"
+        android:textSize="14sp"
+        android:textColor="#1E293B"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="12dp" />
+
+    <ImageView
+        android:id="@+id/imgGraficoCanvasEstatistico"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        android:background="#FAFAFA" />
+
+</LinearLayout>
