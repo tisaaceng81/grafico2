@@ -1,0 +1,51 @@
+workflows:
+  isaac-studio-mobile-build:
+    name: Build do APK - Isaac Studio Mobile
+    max_build_duration: 60
+    instance_type: mac_mini_m1
+    environment:
+      flutter: stable
+    scripts:
+      - name: Inicializar Plataforma Android
+        script: |
+          flutter create --org com.isaacx --project-name isaacplot --no-pub --platforms=android .
+          git checkout . || true
+          mkdir -p android/app/src/main/kotlin
+          find android/app/src/main/kotlin -type f -name "*.kt" ! -path "*/com/isaacx/isaacplot/*" -exec rm -f {} + || true
+          
+      - name: Configurar Ambiente Unity
+        script: |
+          echo "Preparando ambiente para integração Unity..."
+
+      - name: Build Unity
+        script: |
+          if [ -d "unity" ] && [ -f "unity/ProjectSettings/ProjectVersion.txt" ]; then
+            echo "Pasta Unity detectada. Compilando projeto Unity..."
+            /Applications/Unity/Hub/Editor/2022.3.0f1/Unity.app/Contents/MacOS/Unity               -batchmode -nographics -projectPath unity               -executeMethod BuildScript.BuildAndroid -quit
+          else
+            echo "Nenhum projeto Unity detectado. Pulando build 3D."
+          fi      
+      - name: Baixar Dependencias do Projeto
+        script: |
+          if [ ! -f "unity/ProjectSettings/ProjectVersion.txt" ]; then
+            echo "Sem projeto 3D real. Removendo plugin da Unity..."
+            sed -i '' '/flutter_unity_widget/d' pubspec.yaml
+          fi
+          flutter pub get
+
+      - name: Configurar SDKs do Android
+        script: |
+          echo "flutter.compileSdkVersion=34" >> android/local.properties
+          echo "flutter.targetSdkVersion=34" >> android/local.properties
+          echo "flutter.minSdkVersion=23" >> android/local.properties
+
+      - name: Gerar Icones Oficiais e Construir APK
+        script: |
+          dart run flutter_launcher_icons
+          flutter build apk --release
+          mkdir -p build/app/outputs/flutter-apk/
+          find build -name "*release.apk" -exec cp {} build/app/outputs/flutter-apk/app-release.apk \;
+
+          
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
