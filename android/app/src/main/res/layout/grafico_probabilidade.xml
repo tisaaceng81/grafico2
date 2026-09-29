@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/logo5"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
+
+            <TextView
+                android:id="@+id/txtTituloApp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Calculadora Probabilística"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#1E293B"
+                android:layout_marginStart="12dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1. Selecione o Módulo:"
+            android:textColor="#334155"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/edtSeletorModulo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="#F1F5F9"
+            android:textColor="#000000"
+            android:focusable="false"
+            android:clickable="true"
+            android:hint="Toque para selecionar o módulo..."
+            android:textColorHint="#888888"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2. Digite ou cole o problema:"
+            android:textColor="#334155"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            android:layout_marginBottom="4dp" />
+
+        <EditText
+            android:id="@+id/edtProblemaProbabilidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Cole a questão aqui..."
+            android:textColorHint="#888888"
+            android:textColor="#000000"
+            android:background="#F1F5F9"
+            android:padding="12dp"
+            android:minLines="4"
+            android:maxLines="6"
+            android:inputType="textMultiLine|textCapSentences"
+            android:scrollbars="vertical"
+            android:gravity="top|start"
+            android:layout_marginBottom="10dp" />
+
+        <Button
+            android:id="@+id/btnCalcularProbabilidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Calcular Probabilidade e Curva"
+            android:backgroundTint="#0066FF"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="12dp" />
+
+        <TextView
+            android:id="@+id/txtResultadoProbabilidade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Aguardando dados..."
+            android:textSize="14sp"
+            android:textColor="#1E293B"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <ImageView
+            android:id="@+id/imgCanvasProbabilidade"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:scaleType="matrix"
+            android:background="#FAFAFA" />
+
+    </LinearLayout>
+</ScrollView> // ERRO_SERVIDOR: 404
