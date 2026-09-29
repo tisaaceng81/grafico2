@@ -1,0 +1,72 @@
+name: Compilar APK IsaacX
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do codigo
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+          
+      - name: Verificar se o projeto usa Unity
+        id: checar_unity
+        run: |
+          if [ -d "unity" ] && [ -f "unity/ProjectSettings/ProjectVersion.txt" ]; then
+            echo "precisa_unity=true" >> $GITHUB_OUTPUT
+          else
+            echo "precisa_unity=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Instalar Unity
+        if: steps.checar_unity.outputs.precisa_unity == 'true'
+        uses: game-ci/unity-builder@v4
+        with:
+          projectPath: unity
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+
+      - name: Inicializar Plataforma Android
+        run: |
+          flutter create --org com.isaacx --project-name isaacplot --no-pub --platforms=android .
+          git checkout . || true
+          mkdir -p android/app/src/main/kotlin
+          find android/app/src/main/kotlin -type f -name "*.kt" ! -path "*/com/isaacx/isaacplot/*" -exec rm -f {} + || true
+
+      - name: Baixar Dependencias do Projeto
+        run: |
+          if [ "${{ steps.checar_unity.outputs.precisa_unity }}" == "false" ]; then
+            sed -i '/flutter_unity_widget/d' pubspec.yaml
+          fi
+          flutter pub get
+
+      - name: Configurar SDKs do Android
+        run: |
+          flutter pub get
+          echo "flutter.compileSdkVersion=34" >> android/local.properties
+          echo "flutter.targetSdkVersion=34" >> android/local.properties
+          echo "flutter.minSdkVersion=23" >> android/local.properties
+
+      - name: Gerar Icones Oficiais e Construir APK
+        run: |
+          dart run flutter_launcher_icons
+          flutter build apk --release
+
+      - name: Upload do APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: IsaacX-App
+          path: build/app/outputs/flutter-apk/app-release.apk
